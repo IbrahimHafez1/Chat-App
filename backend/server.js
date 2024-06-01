@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import path from 'path'
+import cors from 'cors';
 
 import authRoutes from './routes/auth.routes.js'
 import messageRoutes from './routes/message.routes.js'
@@ -17,6 +18,11 @@ dotenv.config()
 
 app.use(express.json()) // To parse the incoming requests with JSON payloads
 app.use(cookieParser())
+app.use(cors({
+    origin: 'http://localhost:5000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 
 app.use("/api/auth", authRoutes)
 app.use("/api/messages", messageRoutes)
@@ -28,7 +34,7 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"))
 })
 
-server.listen(PORT, () => {
-    connectToMongoDB();
+server.listen(PORT, async () => {
+    await connectToMongoDB();
     console.log(`Server running on port ${PORT} `);
 })
