@@ -18,11 +18,7 @@ dotenv.config()
 
 app.use(express.json()) // To parse the incoming requests with JSON payloads
 app.use(cookieParser())
-app.use(cors({
-    origin: 'http://localhost:5000',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}));
+app.use(cors)
 
 app.use("/api/auth", authRoutes)
 app.use("/api/messages", messageRoutes)
