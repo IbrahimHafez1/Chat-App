@@ -18,7 +18,7 @@ dotenv.config()
 
 app.use(express.json()) // To parse the incoming requests with JSON payloads
 app.use(cookieParser())
-app.use(cors)
+app.use(cors());
 
 app.use("/api/auth", authRoutes)
 app.use("/api/messages", messageRoutes)
